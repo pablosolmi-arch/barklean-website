@@ -27,6 +27,7 @@ export default function Locations() {
                   style={{ border: 0 }}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
+                  sandbox="allow-scripts allow-same-origin"
                   title={`Mapa de ${location.name}`}
                   className="absolute inset-0 w-full h-full"
                 />

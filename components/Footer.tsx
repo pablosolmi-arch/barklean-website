@@ -108,7 +108,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-white/10 text-center text-xs text-white/40">
-        © 2025 Barklean. Todos los derechos reservados.
+        © 2026 Barklean. Todos los derechos reservados.
       </div>
     </footer>
   );
