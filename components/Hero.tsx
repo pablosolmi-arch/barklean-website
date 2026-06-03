@@ -103,6 +103,12 @@ export default function Hero() {
     [p3x, p3y], [p4x, p4y], [p5x, p5y],
   ];
 
+  // Text and photo displacement
+  const textX = useTransform(springX, (v) => v * 10);
+  const textY = useTransform(springY, (v) => v * 6);
+  const photoX = useTransform(springX, (v) => v * -12);
+  const photoY = useTransform(springY, (v) => v * -8);
+
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       rawX.set((e.clientX / window.innerWidth - 0.5) * 2);
@@ -130,7 +136,7 @@ export default function Hero() {
             left: "left" in cfg ? cfg.left : undefined,
             right: "right" in cfg ? cfg.right : undefined,
             rotate: cfg.rot,
-            opacity: 0.055,
+            opacity: 0.10,
             x: pawTransforms[i][0],
             y: pawTransforms[i][1],
           }}
@@ -177,12 +183,12 @@ export default function Hero() {
               {/* Glow ring */}
               <div className="absolute inset-0 rounded-full bg-brand-primary/25 blur-2xl scale-[2.8]" />
               {/* Logo circle */}
-              <div className="relative z-10 w-[120px] h-[120px] rounded-full bg-white shadow-2xl border border-gray-100 ring-4 ring-brand-bg flex items-center justify-center p-3">
+              <div className="relative z-10 w-[156px] h-[156px] rounded-full bg-white shadow-2xl border border-gray-100 ring-4 ring-brand-bg flex items-center justify-center p-3">
                 <Image
                   src="/logo.png"
                   alt="Barklean"
-                  width={90}
-                  height={90}
+                  width={118}
+                  height={118}
                   className="object-contain"
                   priority
                 />
@@ -201,6 +207,7 @@ export default function Hero() {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
+            style={{ x: textX, y: textY }}
             className="text-left pr-20"
           >
             <motion.span
@@ -258,7 +265,7 @@ export default function Hero() {
           </motion.div>
 
           {/* RIGHT: photo (padded left) */}
-          <div className="flex justify-end pl-16">
+          <motion.div style={{ x: photoX, y: photoY }} className="flex justify-end pl-16">
             <div className="relative w-[440px]">
               <motion.div
                 variants={photoVariants}
@@ -287,7 +294,7 @@ export default function Hero() {
               </motion.div>
               <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-brand-bg" />
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* ── MOBILE LAYOUT ── */}
