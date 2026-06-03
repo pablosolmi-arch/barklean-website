@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import PhotoStrip from "@/components/PhotoStrip";
 import TrustBar from "@/components/TrustBar";
 import Services from "@/components/Services";
 import WhyUs from "@/components/WhyUs";
@@ -14,6 +15,7 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <PhotoStrip />
       <TrustBar />
       <Services />
       <WhyUs />

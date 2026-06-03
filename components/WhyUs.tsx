@@ -1,68 +1,92 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+
 const REASONS = [
   {
+    n: "01",
     title: "Experiencia y Amor por los Animales",
-    description:
-      "Nuestro equipo ama lo que hace. Cada mascota recibe atención personalizada.",
+    description: "Nuestro equipo ama lo que hace. Cada mascota recibe atención personalizada y cariñosa.",
   },
   {
+    n: "02",
     title: "Productos de Alta Calidad",
-    description:
-      "Usamos solo shampoos, acondicionadores y productos premium libres de químicos dañinos.",
+    description: "Solo usamos shampoos, acondicionadores y tratamientos premium, libres de químicos dañinos.",
   },
   {
+    n: "03",
     title: "Ambiente Seguro y Tranquilo",
-    description:
-      "Nuestras sucursales están diseñadas para que tu mascota se sienta cómoda y relajada.",
+    description: "Nuestras sucursales están diseñadas para que tu mascota se sienta cómoda y relajada.",
   },
   {
+    n: "04",
     title: "Resultados Garantizados",
-    description:
-      "Si no quedas satisfecho, lo solucionamos. Tu confianza es nuestra prioridad.",
+    description: "Si no quedas satisfecho, lo solucionamos. Tu confianza es nuestra prioridad.",
   },
 ];
 
 export default function WhyUs() {
   return (
-    <section id="por-que" className="bg-brand-surface py-16 px-4">
+    <section id="por-que" className="bg-brand-bg py-20 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <h2 className="text-center font-bold text-3xl text-brand-dark mb-12">
-          ¿Por qué elegirnos?
-        </h2>
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+        >
+          <p className="text-brand-primary text-sm font-semibold tracking-widest uppercase mb-2">Nuestra diferencia</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-brand-charcoal">¿Por qué elegirnos?</h2>
+        </motion.div>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left: numbered list */}
-          <ul className="flex flex-col gap-8">
-            {REASONS.map((reason, index) => (
-              <li key={reason.title} className="flex items-start gap-4">
-                <span className="shrink-0 w-9 h-9 rounded-full bg-brand-primary text-white font-bold flex items-center justify-center text-sm">
-                  {index + 1}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left: numbered reasons */}
+          <div className="space-y-8">
+            {REASONS.map((reason, i) => (
+              <motion.div
+                key={reason.n}
+                className="flex gap-5"
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.1, type: "spring", stiffness: 80, damping: 18 }}
+              >
+                <span className="text-5xl font-bold text-brand-light select-none shrink-0 leading-none mt-1">
+                  {reason.n}
                 </span>
                 <div>
-                  <p className="font-bold text-brand-charcoal mb-1">
-                    {reason.title}
-                  </p>
-                  <p className="text-brand-muted text-sm leading-relaxed">
-                    {reason.description}
-                  </p>
+                  <h3 className="font-bold text-brand-charcoal text-lg mb-1">{reason.title}</h3>
+                  <p className="text-brand-muted text-sm leading-relaxed">{reason.description}</p>
                 </div>
-              </li>
+              </motion.div>
             ))}
-          </ul>
-
-          {/* Right: decorative placeholder */}
-          <div className="bg-brand-bg rounded-2xl flex flex-col items-center justify-center py-16 px-8 text-center">
-            <span className="text-7xl mb-4" aria-hidden="true">
-              🐶
-            </span>
-            <p className="font-bold text-brand-dark text-xl mb-2">
-              Tu mascota en las mejores manos
-            </p>
-            <p className="text-brand-muted text-sm max-w-xs">
-              Más de 500 mascotas felices confían en Barklean cada mes.
-            </p>
           </div>
+
+          {/* Right: real photo of staff */}
+          <motion.div
+            className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl"
+            initial={{ opacity: 0, scale: 0.95, x: 30 }}
+            whileInView={{ opacity: 1, scale: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ type: "spring", stiffness: 70, damping: 18, delay: 0.2 }}
+          >
+            <Image
+              src="/dogs/dog-08.jpeg"
+              alt="Peluquera de Barklean sosteniendo un Pomeranian"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/30 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl px-5 py-4">
+                <p className="font-bold text-brand-charcoal text-sm">Equipo Barklean</p>
+                <p className="text-brand-muted text-xs mt-0.5">Cuidado profesional con amor</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
