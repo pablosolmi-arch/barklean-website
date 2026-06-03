@@ -9,7 +9,7 @@ export default function Locations() {
             Nuestras Sucursales
           </h2>
           <p className="text-brand-gray text-lg">
-            Dos locales en Lo Barnechea para tu conveniencia
+            Lo Barnechea, Santiago
           </p>
         </div>
 

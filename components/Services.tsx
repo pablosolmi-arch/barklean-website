@@ -77,33 +77,15 @@ export default function Services() {
               whileInView="visible"
               viewport={{ once: true, margin: "-60px" }}
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              className={`rounded-2xl p-7 ${
-                service.featured
-                  ? "text-white shadow-xl shadow-brand-dark/20"
-                  : "bg-white border border-gray-100 shadow-sm hover:shadow-md"
-              }`}
-              style={
-                service.featured
-                  ? { background: "linear-gradient(135deg, #3498db, #5dade2)" }
-                  : {}
-              }
+              className="rounded-2xl p-7 bg-white border border-gray-100 shadow-sm hover:shadow-md"
             >
-              <div
-                className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${
-                  service.featured ? "bg-white/20 text-white" : "bg-brand-bg text-brand-primary"
-                }`}
-              >
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-brand-bg text-brand-primary">
                 {ICONS[service.id]}
               </div>
-              {service.featured && (
-                <span className="inline-block text-xs font-semibold bg-white/20 rounded-full px-3 py-0.5 mb-3">
-                  ✦ Más Popular
-                </span>
-              )}
-              <h3 className={`font-bold text-lg mb-2 ${service.featured ? "text-white" : "text-brand-charcoal"}`}>
+              <h3 className="font-bold text-lg mb-2 text-brand-charcoal">
                 {service.title}
               </h3>
-              <p className={`text-sm leading-relaxed ${service.featured ? "text-white/85" : "text-brand-muted"}`}>
+              <p className="text-sm leading-relaxed text-brand-muted">
                 {service.description}
               </p>
             </motion.div>

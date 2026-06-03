@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import PhotoStrip from "@/components/PhotoStrip";
 import TrustBar from "@/components/TrustBar";
 import Services from "@/components/Services";
+import Store from "@/components/Store";
 import WhyUs from "@/components/WhyUs";
 import BookingSteps from "@/components/BookingSteps";
 import Gallery from "@/components/Gallery";
@@ -18,6 +19,7 @@ export default function Home() {
       <PhotoStrip />
       <TrustBar />
       <Services />
+      <Store />
       <WhyUs />
       <BookingSteps />
       <Gallery />

@@ -31,7 +31,7 @@ const TRUST_ITEMS = [
     ),
   },
   {
-    title: "2 Sucursales",
+    title: "Sucursal La Dehesa",
     subtitle: "Lo Barnechea, Santiago",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">

@@ -18,7 +18,7 @@ const robotoSlab = Roboto_Slab({
 export const metadata: Metadata = {
   title: "Barklean — Peluquería Canina en Lo Barnechea, Santiago",
   description:
-    "Peluquería profesional para perros en Lo Barnechea. Cortes, baños, spa y más. 2 sucursales. Reserva por WhatsApp. +56 9 3451 5587.",
+    "Peluquería profesional para perros en Lo Barnechea. Cortes, baños, spa y más. Reserva por WhatsApp. +56 9 3451 5587.",
   keywords: [
     "peluquería canina Santiago",
     "grooming perros Lo Barnechea",
@@ -52,22 +52,13 @@ const jsonLdString = JSON.stringify({
     opens: "10:30",
     closes: "17:00",
   },
-  address: [
-    {
-      "@type": "PostalAddress",
-      streetAddress: "La Dehesa 4580, Local 8",
-      addressLocality: "Lo Barnechea",
-      addressRegion: "Santiago",
-      addressCountry: "CL",
-    },
-    {
-      "@type": "PostalAddress",
-      streetAddress: "El Espino 1949, Local 107",
-      addressLocality: "Lo Barnechea",
-      addressRegion: "Santiago",
-      addressCountry: "CL",
-    },
-  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Av. La Dehesa 3265, Local 10",
+    addressLocality: "Lo Barnechea",
+    addressRegion: "Santiago",
+    addressCountry: "CL",
+  },
   sameAs: [
     "https://www.facebook.com/perruqueriaentretenida",
     "https://www.instagram.com/barklean_peluqueria/",

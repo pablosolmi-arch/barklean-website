@@ -17,19 +17,11 @@ export const BRAND = {
 export const LOCATIONS = [
   {
     name: "La Dehesa",
-    address: "La Dehesa 4580, Local 8",
+    address: "Av. La Dehesa 3265, Local 10",
     city: "Lo Barnechea, Santiago",
-    mapsUrl: "https://maps.app.goo.gl/Yz9eaDJADamwV54J9",
+    mapsUrl: "https://maps.app.goo.gl/Ai7TnYXAT64aNSq59",
     mapsEmbed:
-      "https://maps.google.com/maps?q=La+Dehesa+4580,+Lo+Barnechea,+Santiago&output=embed",
-  },
-  {
-    name: "El Espino",
-    address: "El Espino 1949, Local 107",
-    city: "Lo Barnechea, Santiago",
-    mapsUrl: "https://maps.app.goo.gl/FTiwksL1XKhbqxfV9",
-    mapsEmbed:
-      "https://maps.google.com/maps?q=El+Espino+1949,+Lo+Barnechea,+Santiago&output=embed",
+      "https://maps.google.com/maps?q=Av+La+Dehesa+3265+Lo+Barnechea+Santiago&output=embed",
   },
 ] as const;
 
@@ -56,7 +48,7 @@ export const SERVICES = [
     title: "Spa & Tratamientos",
     description:
       "Tratamientos especiales para piel y pelaje, masajes relajantes y aromaterapia para el bienestar de tu mascota.",
-    featured: true,
+    featured: false,
   },
   {
     id: "unas",

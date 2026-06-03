@@ -5,7 +5,7 @@ import Image from "next/image";
 import { BRAND } from "@/lib/constants";
 
 const STATS = [
-  { value: "2", label: "Sucursales" },
+  { value: "1", label: "Sucursal" },
   { value: "5★", label: "Google Rating" },
   { value: "100%", label: "Profesional" },
 ];
@@ -55,13 +55,68 @@ const badgeVariants = {
   },
 };
 
+// SVG paw print shape
+function PawPrint({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 100 90" className={className} aria-hidden="true" fill="currentColor">
+      {/* Main pad */}
+      <ellipse cx="50" cy="68" rx="24" ry="19" />
+      {/* Toe pads */}
+      <ellipse cx="25" cy="46" rx="10" ry="13" />
+      <ellipse cx="75" cy="46" rx="10" ry="13" />
+      <ellipse cx="37" cy="30" rx="9" ry="12" />
+      <ellipse cx="63" cy="30" rx="9" ry="12" />
+    </svg>
+  );
+}
+
 export default function Hero() {
   return (
     <section
       id="inicio"
       className="relative min-h-[92vh] flex items-center bg-white overflow-hidden"
     >
+      {/* Animated background paw prints */}
+      <motion.div
+        className="absolute top-16 right-8 text-brand-primary/[0.06] w-28 pointer-events-none select-none"
+        animate={{
+          y: [0, -12, 0],
+          rotate: [0, 8, 0],
+        }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <PawPrint />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-28 left-6 text-brand-primary/[0.05] w-20 pointer-events-none select-none"
+        animate={{
+          y: [0, 10, 0],
+          rotate: [0, -10, 0],
+        }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+      >
+        <PawPrint />
+      </motion.div>
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
+
+        {/* Logo — centered above the grid */}
+        <motion.div
+          className="flex justify-center mb-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <Image
+            src="/logo.png"
+            alt="Barklean"
+            width={160}
+            height={60}
+            className="object-contain"
+            priority
+          />
+        </motion.div>
+
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* LEFT: text content */}
@@ -145,7 +200,6 @@ export default function Hero() {
                   priority
                   sizes="(max-width: 1024px) 384px, 480px"
                 />
-                {/* Subtle gradient overlay at bottom */}
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/20 via-transparent to-transparent" />
               </motion.div>
 
