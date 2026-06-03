@@ -7,7 +7,7 @@ export default function Locations() {
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-bold text-brand-dark mb-2">
-            Nuestra Sucursal
+            Encuéntranos
           </h2>
           <p className="text-brand-gray text-lg">Lo Barnechea, Santiago</p>
         </div>

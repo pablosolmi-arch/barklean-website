@@ -7,6 +7,7 @@ import Store from "@/components/Store";
 import WhyUs from "@/components/WhyUs";
 import BookingSteps from "@/components/BookingSteps";
 import Gallery from "@/components/Gallery";
+import Testimonials from "@/components/Testimonials";
 import Locations from "@/components/Locations";
 import Footer from "@/components/Footer";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -23,6 +24,7 @@ export default function Home() {
       <WhyUs />
       <BookingSteps />
       <Gallery />
+      <Testimonials />
       <Locations />
       <Footer />
       <FloatingWhatsApp />

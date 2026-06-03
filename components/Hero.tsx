@@ -11,8 +11,7 @@ import { useEffect } from "react";
 import { BRAND } from "@/lib/constants";
 
 const STATS = [
-  { value: "1", label: "Sucursal" },
-  { value: "5★", label: "Google Rating" },
+  { value: "4.5★", label: "Google" },
   { value: "100%", label: "Profesional" },
 ];
 
