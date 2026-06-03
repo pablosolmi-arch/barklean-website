@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { NAV_LINKS, BRAND } from "@/lib/constants";
 
 export default function Navbar() {
@@ -9,28 +8,27 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <nav
-      className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
-        scrolled ? "shadow-md" : "border-b border-gray-100"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-md"
+          : "bg-white/70 backdrop-blur-lg border-b border-gray-100/60"
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <a href="#inicio" className="flex items-center shrink-0">
-            <Image
-              src="/logo.png"
-              alt="Barklean logo"
-              width={130}
-              height={48}
-              className="object-contain"
-              priority
-            />
+        <div className="flex items-center justify-between h-14">
+          {/* Wordmark — no image, clean text */}
+          <a
+            href="#inicio"
+            className="font-slab text-xl font-bold text-brand-charcoal hover:text-brand-dark transition-colors shrink-0"
+          >
+            Barklean
           </a>
 
           <div className="hidden md:flex items-center gap-8">
@@ -49,7 +47,7 @@ export default function Navbar() {
             href={BRAND.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-dark text-white text-sm font-semibold rounded-full px-5 py-2.5 transition-colors"
+            className="hidden md:inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-dark text-white text-sm font-semibold rounded-full px-5 py-2 transition-colors"
           >
             Reserva tu Cita
           </a>
@@ -72,7 +70,7 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-4">
+        <div className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 px-4 py-4 flex flex-col gap-4">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}

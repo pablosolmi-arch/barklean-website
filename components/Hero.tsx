@@ -1,7 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import {
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import Image from "next/image";
+import { useEffect } from "react";
 import { BRAND } from "@/lib/constants";
 
 const STATS = [
@@ -12,12 +18,7 @@ const STATS = [
 
 const containerVariants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.1,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
 const itemVariants = {
@@ -55,13 +56,10 @@ const badgeVariants = {
   },
 };
 
-// SVG paw print shape
-function PawPrint({ className }: { className?: string }) {
+function PawPrint() {
   return (
-    <svg viewBox="0 0 100 90" className={className} aria-hidden="true" fill="currentColor">
-      {/* Main pad */}
+    <svg viewBox="0 0 100 90" aria-hidden="true" fill="currentColor" className="w-full h-full">
       <ellipse cx="50" cy="68" rx="24" ry="19" />
-      {/* Toe pads */}
       <ellipse cx="25" cy="46" rx="10" ry="13" />
       <ellipse cx="75" cy="46" rx="10" ry="13" />
       <ellipse cx="37" cy="30" rx="9" ry="12" />
@@ -70,61 +68,140 @@ function PawPrint({ className }: { className?: string }) {
   );
 }
 
+// Paw print configs: position, size, parallax factor, rotation
+const PAW_CONFIG = [
+  { top: "7%",  left: "2%",  size: 64, fx: 28,  fy: 20,  rot: 15  },
+  { top: "12%", right: "3%", size: 40, fx: -18, fy: -14, rot: -22 },
+  { top: "50%", left: "1%",  size: 48, fx: 32,  fy: -22, rot: 8   },
+  { bottom: "18%", right: "2%", size: 80, fx: -22, fy: 16, rot: -14 },
+  { bottom: "35%", left: "7%",  size: 36, fx: 15,  fy: 12, rot: 20  },
+  { top: "70%", right: "12%", size: 52, fx: -12, fy: -10, rot: -6  },
+] as const;
+
 export default function Hero() {
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const springX = useSpring(rawX, { stiffness: 40, damping: 18 });
+  const springY = useSpring(rawY, { stiffness: 40, damping: 18 });
+
+  // Pre-compute parallax transforms for each paw (hooks must be at top level)
+  const p0x = useTransform(springX, (v) => v * PAW_CONFIG[0].fx);
+  const p0y = useTransform(springY, (v) => v * PAW_CONFIG[0].fy);
+  const p1x = useTransform(springX, (v) => v * PAW_CONFIG[1].fx);
+  const p1y = useTransform(springY, (v) => v * PAW_CONFIG[1].fy);
+  const p2x = useTransform(springX, (v) => v * PAW_CONFIG[2].fx);
+  const p2y = useTransform(springY, (v) => v * PAW_CONFIG[2].fy);
+  const p3x = useTransform(springX, (v) => v * PAW_CONFIG[3].fx);
+  const p3y = useTransform(springY, (v) => v * PAW_CONFIG[3].fy);
+  const p4x = useTransform(springX, (v) => v * PAW_CONFIG[4].fx);
+  const p4y = useTransform(springY, (v) => v * PAW_CONFIG[4].fy);
+  const p5x = useTransform(springX, (v) => v * PAW_CONFIG[5].fx);
+  const p5y = useTransform(springY, (v) => v * PAW_CONFIG[5].fy);
+
+  const pawTransforms = [
+    [p0x, p0y], [p1x, p1y], [p2x, p2y],
+    [p3x, p3y], [p4x, p4y], [p5x, p5y],
+  ];
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent) => {
+      rawX.set((e.clientX / window.innerWidth - 0.5) * 2);
+      rawY.set((e.clientY / window.innerHeight - 0.5) * 2);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [rawX, rawY]);
+
   return (
     <section
       id="inicio"
       className="relative min-h-[92vh] flex items-center bg-white overflow-hidden"
     >
-      {/* Animated background paw prints */}
+      {/* Parallax paw prints (desktop) */}
+      {PAW_CONFIG.map((cfg, i) => (
+        <motion.div
+          key={i}
+          className="absolute hidden lg:block text-brand-primary pointer-events-none select-none"
+          style={{
+            width: cfg.size,
+            height: cfg.size,
+            top: "top" in cfg ? cfg.top : undefined,
+            bottom: "bottom" in cfg ? cfg.bottom : undefined,
+            left: "left" in cfg ? cfg.left : undefined,
+            right: "right" in cfg ? cfg.right : undefined,
+            rotate: cfg.rot,
+            opacity: 0.055,
+            x: pawTransforms[i][0],
+            y: pawTransforms[i][1],
+          }}
+        >
+          <PawPrint />
+        </motion.div>
+      ))}
+
+      {/* Floating paw prints (mobile fallback) */}
       <motion.div
-        className="absolute top-16 right-8 text-brand-primary/[0.06] w-28 pointer-events-none select-none"
-        animate={{
-          y: [0, -12, 0],
-          rotate: [0, 8, 0],
-        }}
+        className="absolute top-16 right-6 w-16 text-brand-primary/[0.07] pointer-events-none lg:hidden"
+        animate={{ y: [0, -10, 0], rotate: [0, 8, 0] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       >
         <PawPrint />
       </motion.div>
       <motion.div
-        className="absolute bottom-28 left-6 text-brand-primary/[0.05] w-20 pointer-events-none select-none"
-        animate={{
-          y: [0, 10, 0],
-          rotate: [0, -10, 0],
-        }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        className="absolute bottom-24 left-4 w-10 text-brand-primary/[0.06] pointer-events-none lg:hidden"
+        animate={{ y: [0, 10, 0], rotate: [0, -8, 0] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
       >
         <PawPrint />
       </motion.div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-20">
 
-        {/* Logo — centered above the grid */}
-        <motion.div
-          className="flex justify-center mb-10"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <Image
-            src="/logo.png"
-            alt="Barklean"
-            width={160}
-            height={60}
-            className="object-contain"
-            priority
-          />
-        </motion.div>
+        {/* ── DESKTOP LAYOUT ── */}
+        <div className="hidden lg:grid lg:grid-cols-2 items-center gap-0 relative">
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Center logo divider — absolutely positioned between columns */}
+          <div className="absolute left-1/2 -translate-x-1/2 inset-y-0 z-20 flex flex-col items-center py-6 pointer-events-none">
+            <motion.div
+              className="w-px flex-1 bg-gradient-to-b from-transparent via-brand-primary/20 to-brand-primary/35 origin-top"
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.7, ease: "easeOut" }}
+            />
+            <motion.div
+              className="relative my-3"
+              initial={{ opacity: 0, scale: 0.4 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5, type: "spring", stiffness: 130, damping: 13 }}
+            >
+              {/* Glow ring */}
+              <div className="absolute inset-0 rounded-full bg-brand-primary/25 blur-2xl scale-[2.8]" />
+              {/* Logo circle */}
+              <div className="relative z-10 w-[120px] h-[120px] rounded-full bg-white shadow-2xl border border-gray-100 ring-4 ring-brand-bg flex items-center justify-center p-3">
+                <Image
+                  src="/logo.png"
+                  alt="Barklean"
+                  width={90}
+                  height={90}
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </motion.div>
+            <motion.div
+              className="w-px flex-1 bg-gradient-to-b from-brand-primary/35 via-brand-primary/20 to-transparent origin-bottom"
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.7, ease: "easeOut" }}
+            />
+          </div>
 
-          {/* LEFT: text content */}
+          {/* LEFT: text (padded right so text doesn't overlap logo) */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="text-center lg:text-left order-2 lg:order-1"
+            className="text-left pr-20"
           >
             <motion.span
               variants={itemVariants}
@@ -135,7 +212,7 @@ export default function Hero() {
 
             <motion.h1
               variants={itemVariants}
-              className="font-slab text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-brand-charcoal mb-6"
+              className="font-slab text-5xl lg:text-6xl font-bold leading-tight text-brand-charcoal mb-6"
             >
               Tu Mejor Amigo
               <br />
@@ -144,16 +221,13 @@ export default function Hero() {
 
             <motion.p
               variants={itemVariants}
-              className="text-brand-muted text-lg max-w-lg mx-auto lg:mx-0 mb-10 leading-relaxed"
+              className="text-brand-muted text-lg max-w-md mb-10 leading-relaxed"
             >
               Transformamos a tu mascota con cariño, experiencia y los mejores
               productos premium. Reserva por WhatsApp en segundos.
             </motion.p>
 
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
-            >
+            <motion.div variants={itemVariants} className="flex gap-3">
               <a
                 href={BRAND.whatsapp}
                 target="_blank"
@@ -164,7 +238,7 @@ export default function Hero() {
               </a>
               <a
                 href="#servicios"
-                className="inline-flex items-center justify-center gap-2 border-2 border-brand-primary text-brand-primary font-semibold rounded-full px-8 py-3.5 hover:bg-brand-bg transition-colors"
+                className="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold rounded-full px-8 py-3.5 hover:bg-brand-bg transition-colors"
               >
                 Ver Servicios
               </a>
@@ -172,10 +246,10 @@ export default function Hero() {
 
             <motion.div
               variants={itemVariants}
-              className="flex items-center gap-10 justify-center lg:justify-start mt-12 pt-8 border-t border-gray-100"
+              className="flex items-center gap-10 mt-12 pt-8 border-t border-gray-100"
             >
               {STATS.map((stat) => (
-                <div key={stat.value} className="text-center lg:text-left">
+                <div key={stat.value}>
                   <p className="text-2xl font-bold text-brand-dark">{stat.value}</p>
                   <p className="text-xs text-brand-muted mt-0.5">{stat.label}</p>
                 </div>
@@ -183,9 +257,9 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* RIGHT: hero photo with clip-path curtain reveal */}
-          <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-sm lg:max-w-none lg:w-[480px]">
+          {/* RIGHT: photo (padded left) */}
+          <div className="flex justify-end pl-16">
+            <div className="relative w-[440px]">
               <motion.div
                 variants={photoVariants}
                 initial="hidden"
@@ -198,12 +272,10 @@ export default function Hero() {
                   fill
                   className="object-cover"
                   priority
-                  sizes="(max-width: 1024px) 384px, 480px"
+                  sizes="440px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/20 via-transparent to-transparent" />
               </motion.div>
-
-              {/* Floating badge */}
               <motion.div
                 variants={badgeVariants}
                 initial="hidden"
@@ -213,13 +285,75 @@ export default function Hero() {
                 <p className="text-xs text-brand-muted">Atendemos</p>
                 <p className="text-sm font-bold text-brand-charcoal">Lun–Sáb · 10:30–17:00</p>
               </motion.div>
-
-              {/* Decorative dot */}
               <div className="absolute -top-4 -right-4 w-16 h-16 rounded-full bg-brand-bg" />
             </div>
           </div>
-
         </div>
+
+        {/* ── MOBILE LAYOUT ── */}
+        <div className="lg:hidden flex flex-col items-center gap-8">
+          {/* Logo (mobile) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 130, damping: 13 }}
+            className="relative"
+          >
+            <div className="absolute inset-0 rounded-full bg-brand-primary/20 blur-xl scale-[2.2]" />
+            <div className="relative z-10 w-24 h-24 rounded-full bg-white shadow-xl border border-gray-100 ring-4 ring-brand-bg flex items-center justify-center p-2">
+              <Image src="/logo.png" alt="Barklean" width={70} height={70} className="object-contain" priority />
+            </div>
+          </motion.div>
+
+          {/* Photo (mobile) */}
+          <div className="relative w-full max-w-xs">
+            <motion.div
+              variants={photoVariants}
+              initial="hidden"
+              animate="visible"
+              className="animate-float relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-brand-dark/20"
+            >
+              <Image src="/dogs/dog-07.jpeg" alt="Perrito feliz en Barklean" fill className="object-cover" priority sizes="320px" />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-charcoal/20 via-transparent to-transparent" />
+            </motion.div>
+            <motion.div
+              variants={badgeVariants}
+              initial="hidden"
+              animate="visible"
+              className="absolute -bottom-4 -left-4 bg-white rounded-2xl px-4 py-2.5 shadow-xl border border-gray-100"
+            >
+              <p className="text-xs text-brand-muted">Atendemos</p>
+              <p className="text-sm font-bold text-brand-charcoal">Lun–Sáb · 10:30–17:00</p>
+            </motion.div>
+          </div>
+
+          {/* Text (mobile) */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="text-center pt-6"
+          >
+            <motion.span variants={itemVariants} className="inline-block bg-brand-bg text-brand-dark text-xs font-semibold tracking-widest uppercase rounded-full px-4 py-1.5 mb-4">
+              Peluquería Canina · Lo Barnechea
+            </motion.span>
+            <motion.h1 variants={itemVariants} className="font-slab text-4xl font-bold leading-tight text-brand-charcoal mb-4">
+              Tu Mejor Amigo<br /><span className="text-brand-dark">Merece el Mejor Cuidado</span>
+            </motion.h1>
+            <motion.p variants={itemVariants} className="text-brand-muted text-base max-w-sm mx-auto mb-8 leading-relaxed">
+              Transformamos a tu mascota con cariño, experiencia y los mejores productos premium.
+            </motion.p>
+            <motion.div variants={itemVariants} className="flex flex-col gap-3">
+              <a href={BRAND.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center bg-brand-primary hover:bg-brand-dark text-white font-bold rounded-full px-8 py-3.5 transition-all">
+                Reserva tu Cita →
+              </a>
+              <a href="#servicios" className="inline-flex items-center justify-center border-2 border-brand-primary text-brand-primary font-semibold rounded-full px-8 py-3.5 hover:bg-brand-bg transition-colors">
+                Ver Servicios
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );
