@@ -37,10 +37,7 @@ export default function BookingSteps() {
             <div key={step.number} className="flex flex-col md:flex-row items-center">
               <div className="flex flex-col items-center text-center max-w-xs px-6">
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-md"
-                  style={{
-                    background: "linear-gradient(135deg, #5DADE2, #1a6ea8)",
-                  }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-md bg-brand-primary"
                 >
                   {step.number}
                 </div>
