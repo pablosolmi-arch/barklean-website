@@ -85,31 +85,14 @@ export const SERVICES = [
 ] as const;
 
 export const GALLERY_IMAGES = [
-  {
-    src: "https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.15-1.jpeg",
-    alt: "Transformaci\u00f3n de perro 1",
-    large: true,
-  },
-  {
-    src: "https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.17.jpeg",
-    alt: "Transformaci\u00f3n de perro 2",
-    large: false,
-  },
-  {
-    src: "https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16-3.jpeg",
-    alt: "Transformaci\u00f3n de perro 3",
-    large: false,
-  },
-  {
-    src: "https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16.jpeg",
-    alt: "Transformaci\u00f3n de perro 4",
-    large: false,
-  },
-  {
-    src: "https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16-2-e1763804003256.jpeg",
-    alt: "Transformaci\u00f3n de perro 5",
-    large: false,
-  },
+  { src: "/dogs/dog-07.jpeg", alt: "Perrito feliz en Barklean" },
+  { src: "/dogs/dog-01.jpeg", alt: "Pastor alemán en el salón" },
+  { src: "/dogs/dog-08.jpeg", alt: "Peluquera con Pomeranian" },
+  { src: "/dogs/dog-04.jpeg", alt: "Samoyedo en el salón" },
+  { src: "/dogs/dog-02.jpeg", alt: "Perrito con pañoleta naranja" },
+  { src: "/dogs/dog-03.jpeg", alt: "Weimaraners en el salón" },
+  { src: "/dogs/dog-06.jpeg", alt: "Weimaraners en la tienda" },
+  { src: "/dogs/dog-05.jpeg", alt: "Perritos pequeños en cama" },
 ] as const;
 
 export const NAV_LINKS = [
