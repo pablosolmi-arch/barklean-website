@@ -46,7 +46,12 @@ const jsonLdString = JSON.stringify({
   url: "https://barkleanchile.cl",
   telephone: "+56934515587",
   email: "contacto@barklean.cl",
-  openingHours: "Mo-Sa 10:30-17:00",
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "10:30",
+    closes: "17:00",
+  },
   address: [
     {
       "@type": "PostalAddress",
