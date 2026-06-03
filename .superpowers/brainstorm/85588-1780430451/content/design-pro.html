@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barklean — Diseño Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=Roboto+Slab:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #fff; color: #2D2D2D; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(93,173,226,0.12);
+    padding: 0 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+    box-shadow: 0 2px 20px rgba(52,152,219,0.08);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo img { height: 44px; }
+  .nav-links { display: flex; gap: 32px; font-size: 14px; font-weight: 500; color: #54595F; }
+  .nav-links a { text-decoration: none; color: inherit; }
+  .nav-cta {
+    background: #5DADE2; color: #fff;
+    padding: 10px 22px; border-radius: 100px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    box-shadow: 0 4px 14px rgba(93,173,226,0.35);
+  }
+
+  .hero {
+    min-height: 88vh;
+    background: linear-gradient(135deg, #1a6ea8 0%, #3498DB 45%, #5DADE2 100%);
+    display: flex; align-items: center;
+    padding: 0 48px;
+    position: relative; overflow: hidden;
+  }
+  .hero-content { position: relative; max-width: 580px; z-index: 2; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+    color: #fff; font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.25); text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 52px; font-weight: 800; line-height: 1.1;
+    color: #fff; margin-bottom: 20px; letter-spacing: -1px;
+  }
+  .hero h1 span { color: #A7DCFF; }
+  .hero p { font-size: 18px; color: rgba(255,255,255,0.88); line-height: 1.7; margin-bottom: 36px; }
+  .hero-buttons { display: flex; gap: 14px; }
+  .btn-primary {
+    background: #fff; color: #3498DB;
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+  .btn-secondary {
+    background: transparent; color: #fff;
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    border: 2px solid rgba(255,255,255,0.45);
+  }
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 48px;
+    padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .stat { color: #fff; }
+  .stat-num { font-size: 28px; font-weight: 800; line-height: 1; }
+  .stat-label { font-size: 13px; opacity: 0.75; margin-top: 3px; }
+  .hero-right {
+    position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+    width: 320px; height: 400px;
+    background: rgba(255,255,255,0.12); border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 80px; backdrop-filter: blur(4px);
+  }
+
+  .trust-bar {
+    background: #F4FAFD; padding: 20px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 48px;
+    border-bottom: 1px solid #ECF5FB;
+  }
+  .trust-item { display: flex; align-items: center; gap: 10px; color: #54595F; font-size: 14px; font-weight: 500; }
+
+  .section { padding: 80px 48px; }
+  .section-label { font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5DADE2; margin-bottom: 12px; }
+  .section-title { font-size: 38px; font-weight: 800; color: #2D2D2D; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 16px; }
+  .section-sub { font-size: 17px; color: #7A7A7A; line-height: 1.7; max-width: 520px; }
+
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  .service-card {
+    background: #fff; border-radius: 20px; padding: 32px 28px;
+    border: 1.5px solid #ECF5FB;
+    box-shadow: 0 4px 24px rgba(52,152,219,0.06);
+  }
+  .service-card.featured { background: linear-gradient(135deg, #3498DB, #5DADE2); border-color: transparent; }
+  .service-icon { font-size: 36px; margin-bottom: 16px; }
+  .service-title { font-size: 18px; font-weight: 700; color: #2D2D2D; margin-bottom: 8px; }
+  .service-card.featured .service-title { color: #fff; }
+  .service-desc { font-size: 14px; color: #7A7A7A; line-height: 1.6; }
+  .service-card.featured .service-desc { color: rgba(255,255,255,0.85); }
+  .service-link { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 600; color: #5DADE2; text-decoration: none; }
+  .service-card.featured .service-link { color: #A7DCFF; }
+
+  .whyus { background: #F4FAFD; }
+  .whyus-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .whyus-image { background: linear-gradient(135deg, #A7DCFF, #5DADE2); border-radius: 24px; height: 420px; display: flex; align-items: center; justify-content: center; font-size: 80px; }
+  .why-item { display: flex; gap: 16px; margin-bottom: 28px; }
+  .why-num { width: 40px; height: 40px; min-width: 40px; background: #5DADE2; color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; }
+  .why-title { font-size: 16px; font-weight: 700; color: #2D2D2D; margin-bottom: 4px; }
+  .why-desc { font-size: 14px; color: #7A7A7A; line-height: 1.6; }
+
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+  .step { text-align: center; padding: 36px 24px; background: #fff; border-radius: 20px; border: 1.5px solid #ECF5FB; box-shadow: 0 4px 20px rgba(52,152,219,0.05); }
+  .step-num { width: 56px; height: 56px; background: linear-gradient(135deg, #3498DB, #5DADE2); color: #fff; border-radius: 16px; font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 6px 20px rgba(52,152,219,0.3); }
+  .step h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .step p { font-size: 14px; color: #7A7A7A; line-height: 1.6; }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 200px 200px; gap: 12px; margin-top: 48px; }
+  .gallery-item { border-radius: 16px; overflow: hidden; background: #A7DCFF; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #3498DB; }
+  .gallery-item:first-child { grid-column: span 2; grid-row: span 2; font-size: 80px; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+
+  .locations-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
+  .location-card { border-radius: 20px; overflow: hidden; border: 1.5px solid #ECF5FB; box-shadow: 0 4px 20px rgba(52,152,219,0.07); }
+  .location-map { height: 200px; background: linear-gradient(135deg, #ECF5FB, #A7DCFF); display: flex; align-items: center; justify-content: center; font-size: 48px; }
+  .location-info { padding: 24px; }
+  .location-name { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .location-addr { font-size: 14px; color: #7A7A7A; line-height: 1.6; margin-bottom: 16px; }
+  .btn-map { display: inline-block; background: #5DADE2; color: #fff; padding: 9px 18px; border-radius: 100px; font-size: 13px; font-weight: 600; text-decoration: none; }
+
+  footer { background: #2D2D2D; color: #fff; padding: 60px 48px 32px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .footer-desc { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 20px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn { width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; }
+  .footer-col h4 { font-size: 13px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #5DADE2; margin-bottom: 16px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 14px; color: rgba(255,255,255,0.6); text-decoration: none; }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.4); }
+
+  .floating-wa { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 56px; height: 56px; background: #25D366; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; box-shadow: 0 8px 30px rgba(37,211,102,0.4); text-decoration: none; }
+
+  .scroll-note { text-align: center; font-size: 12px; color: #fff; padding: 8px; background: #3498DB; }
+</style>
+</head>
+<body>
+
+<div class="scroll-note">Scroll para ver el diseño completo — todas las secciones están aqui</div>
+
+<nav>
+  <div class="nav-logo">
+    <img src="/logo.png" alt="Barklean">
+    <span style="font-weight:800;color:#3498DB;font-size:18px">BarKlean</span>
+  </div>
+  <div class="nav-links">
+    <a href="#">Inicio</a>
+    <a href="#">Servicios</a>
+    <a href="#">Galería</a>
+    <a href="#">Ubicación</a>
+  </div>
+  <a class="nav-cta" href="#">Reserva tu Cita</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🐾 Peluquería Profesional · Lo Barnechea</div>
+    <h1>Tu Mejor Amigo<br>Merece el <span>Mejor Cuidado</span></h1>
+    <p>Transformamos a tu mascota con cariño, experiencia y los mejores productos. Dos sucursales en Lo Barnechea.</p>
+    <div class="hero-buttons">
+      <a class="btn-primary" href="https://wa.me/56934515587?text=Hola%21%20estaba%20viendo%20su%20p%C3%A1gina%20web%20y%20me%20interesan%20sus%20servicios">Reserva tu Cita →</a>
+      <a class="btn-secondary" href="#">Ver Servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">2</div><div class="stat-label">Sucursales</div></div>
+      <div class="stat"><div class="stat-num">5★</div><div class="stat-label">Calificación</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Profesional</div></div>
+    </div>
+  </div>
+  <div class="hero-right">🐶</div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item"><span>✅</span> Profesionales certificados</div>
+  <div class="trust-item"><span>🧴</span> Productos premium hipoalergénicos</div>
+  <div class="trust-item"><span>📅</span> Reserva fácil por WhatsApp</div>
+  <div class="trust-item"><span>🏠</span> 2 locales en Lo Barnechea</div>
+</div>
+
+<section class="section">
+  <div class="section-label">Nuestros servicios</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end">
+    <div>
+      <h2 class="section-title">Peluquería de alta<br>gama para tu perro</h2>
+      <p class="section-sub">Cada servicio está diseñado para el bienestar y la comodidad de tu mascota.</p>
+    </div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card"><div class="service-icon">✂️</div><div class="service-title">Corte de Pelo</div><div class="service-desc">Cortes personalizados según la raza y estilo de tu perro.</div><a class="service-link" href="#">Reservar →</a></div>
+    <div class="service-card"><div class="service-icon">🛁</div><div class="service-title">Baño Completo</div><div class="service-desc">Shampoo premium, acondicionador, secado profesional y cepillado.</div><a class="service-link" href="#">Reservar →</a></div>
+    <div class="service-card featured"><div class="service-icon">✨</div><div class="service-title">Spa & Tratamientos</div><div class="service-desc">Masajes relajantes y aromaterapia para el bienestar de tu mascota.</div><a class="service-link" href="#">Reservar →</a></div>
+    <div class="service-card"><div class="service-icon">🐾</div><div class="service-title">Corte de Uñas</div><div class="service-desc">Recorte profesional, limado y revisión de almohadillas.</div><a class="service-link" href="#">Reservar →</a></div>
+    <div class="service-card"><div class="service-icon">🌀</div><div class="service-title">Deslanado</div><div class="service-desc">Eliminación de pelo muerto. Ideal para razas de pelo largo.</div><a class="service-link" href="#">Reservar →</a></div>
+    <div class="service-card"><div class="service-icon">🎁</div><div class="service-title">Paquetes Completos</div><div class="service-desc">Combina servicios y ahorra. Adaptado a las necesidades de tu mascota.</div><a class="service-link" href="#">Ver paquetes →</a></div>
+  </div>
+</section>
+
+<section class="section whyus">
+  <div class="whyus-grid">
+    <div>
+      <div class="section-label">¿Por qué elegirnos?</div>
+      <h2 class="section-title">Cuidado profesional<br>con amor real</h2>
+      <p class="section-sub" style="margin-bottom:36px">Tu perro está en las mejores manos.</p>
+      <div class="why-item">
+        <div class="why-num">1</div>
+        <div><div class="why-title">Profesionales certificados</div><div class="why-desc">Estilistas con credenciales internacionales y años de experiencia.</div></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">2</div>
+        <div><div class="why-title">Productos premium hipoalergénicos</div><div class="why-desc">Solo usamos shampoos y tratamientos seguros para toda raza.</div></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">3</div>
+        <div><div class="why-title">Atención personalizada</div><div class="why-desc">Cada perro es único. Adaptamos cada servicio a tu mascota.</div></div>
+      </div>
+    </div>
+    <div class="whyus-image">🐕</div>
+  </div>
+</section>
+
+<section class="section" style="text-align:center">
+  <div class="section-label">Proceso de reserva</div>
+  <h2 class="section-title">Reserva en 3 pasos simples</h2>
+  <p class="section-sub" style="margin:0 auto 0">Sin formularios complicados. Agenda directamente por WhatsApp.</p>
+  <div class="steps-grid">
+    <div class="step"><div class="step-num">1</div><h3>Elige tu servicio</h3><p>Revisa nuestros servicios y elige el que mejor se adapta a tu perro.</p></div>
+    <div class="step"><div class="step-num">2</div><h3>Elige fecha y hora</h3><p>Escríbenos por WhatsApp y te confirmamos disponibilidad al instante.</p></div>
+    <div class="step"><div class="step-num">3</div><h3>¡Listo, nos vemos!</h3><p>Ven a cualquiera de nuestras dos sucursales en Lo Barnechea.</p></div>
+  </div>
+  <a href="https://wa.me/56934515587?text=Hola%21%20estaba%20viendo%20su%20p%C3%A1gina%20web%20y%20me%20interesan%20sus%20servicios" style="display:inline-block;margin-top:36px;background:#5DADE2;color:#fff;padding:16px 36px;border-radius:100px;font-size:16px;font-weight:700;text-decoration:none;box-shadow:0 8px 30px rgba(93,173,226,0.35)">Reservar por WhatsApp →</a>
+</section>
+
+<section class="section" style="background:#F4FAFD">
+  <div class="section-label">Galería</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-end">
+    <h2 class="section-title">Transformaciones<br>que hablan por sí solas</h2>
+    <a href="#" style="font-size:14px;color:#5DADE2;font-weight:600;text-decoration:none">Ver galería completa →</a>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.15-1.jpeg" alt="Transformación 1" onerror="this.parentElement.textContent='🐩'"></div>
+    <div class="gallery-item" style="background:#ECF5FB"><img src="https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.17.jpeg" alt="Transformación 2" onerror="this.parentElement.textContent='🐕'"></div>
+    <div class="gallery-item" style="background:#ECF5FB"><img src="https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16-3.jpeg" alt="Transformación 3" onerror="this.parentElement.textContent='🦮'"></div>
+    <div class="gallery-item" style="background:#A7DCFF"><img src="https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16.jpeg" alt="Transformación 4" onerror="this.parentElement.textContent='🐶'"></div>
+    <div class="gallery-item" style="background:#ECF5FB"><img src="https://barkleanchile.cl/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-17-at-11.57.16-2-e1763804003256.jpeg" alt="Transformación 5" onerror="this.parentElement.textContent='🐾'"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-label">Dónde encontrarnos</div>
+  <h2 class="section-title">Dos sucursales en Lo Barnechea</h2>
+  <div class="locations-grid">
+    <div class="location-card">
+      <div class="location-map">🗺️</div>
+      <div class="location-info">
+        <div class="location-name">La Dehesa</div>
+        <div class="location-addr">La Dehesa 4580, Local 8<br>Lo Barnechea, Santiago<br><br><strong>Lun–Sáb: 10:30 – 17:00</strong></div>
+        <a class="btn-map" href="https://maps.app.goo.gl/Yz9eaDJADamwV54J9" target="_blank">Ver en Google Maps →</a>
+      </div>
+    </div>
+    <div class="location-card">
+      <div class="location-map">🗺️</div>
+      <div class="location-info">
+        <div class="location-name">El Espino</div>
+        <div class="location-addr">El Espino 1949, Local 107<br>Lo Barnechea, Santiago<br><br><strong>Lun–Sáb: 10:30 – 17:00</strong></div>
+        <a class="btn-map" href="https://maps.app.goo.gl/FTiwksL1XKhbqxfV9" target="_blank">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="font-size:24px;font-weight:800;color:#5DADE2;margin-bottom:16px">BarKlean</div>
+      <p class="footer-desc">Peluquería profesional para perros en Chile. Cuidamos a tu mascota con amor y experiencia desde Lo Barnechea.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="https://www.facebook.com/perruqueriaentretenida" target="_blank">📘</a>
+        <a class="social-btn" href="https://www.instagram.com/barklean_peluqueria/" target="_blank">📸</a>
+        <a class="social-btn" href="https://wa.me/56934515587" target="_blank">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navegación</h4>
+      <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Servicios</a></li>
+        <li><a href="#">Galería</a></li>
+        <li><a href="#">Ubicación</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#">Corte de Pelo</a></li>
+        <li><a href="#">Baño Completo</a></li>
+        <li><a href="#">Spa & Tratamientos</a></li>
+        <li><a href="#">Deslanado</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="tel:+56934515587">+56 9 3451 5587</a></li>
+        <li><a href="mailto:contacto@barklean.cl">contacto@barklean.cl</a></li>
+        <li><a href="#">La Dehesa 4580, L.8</a></li>
+        <li><a href="#">El Espino 1949, L.107</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Barklean. Todos los derechos reservados.</div>
+    <div class="footer-copy">Lo Barnechea, Santiago de Chile</div>
+  </div>
+</footer>
+
+<a class="floating-wa" href="https://wa.me/56934515587?text=Hola%21%20estaba%20viendo%20su%20p%C3%A1gina%20web%20y%20me%20interesan%20sus%20servicios" target="_blank">💬</a>
+
+</body>
+</html>
