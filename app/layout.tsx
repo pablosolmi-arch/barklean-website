@@ -29,10 +29,18 @@ export const metadata: Metadata = {
     title: "Barklean — Peluquería Canina en Lo Barnechea",
     description:
       "Transformamos a tu mascota con cariño, experiencia y los mejores productos.",
-    url: "https://barkleanchile.cl",
+    url: "https://www.barklean.cl",
     siteName: "Barklean",
     locale: "es_CL",
     type: "website",
+    images: [
+      {
+        url: "https://www.barklean.cl/logo.png",
+        width: 264,
+        height: 191,
+        alt: "Barklean Peluquería Canina",
+      },
+    ],
   },
   alternates: { canonical: "https://barkleanchile.cl" },
   robots: { index: true, follow: true },
