@@ -138,7 +138,18 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-white/10 text-center text-xs text-white/40">
-        © 2026 Barklean. Todos los derechos reservados.
+        <p>© 2026 Barklean. Todos los derechos reservados.</p>
+        <p className="mt-1">
+          Diseñado y construido por{" "}
+          <a
+            href="https://www.wowstudio.cl/?utm_source=barklean.cl&utm_medium=referral&utm_campaign=footer-credit"
+            target="_blank"
+            rel="noopener"
+            className="hover:text-white/70 transition-colors"
+          >
+            WOW Studio
+          </a>
+        </p>
       </div>
     </footer>
   );
